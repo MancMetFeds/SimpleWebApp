@@ -4,7 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
 )
+
+func handler(w http.ResponseWriter, r http.Request) {
+	fmt.Fprintf(w, "Hi there, I love %s!, r.URL.Path[1:]")
+}
 
 // pages are defined as structs
 type Page struct {
