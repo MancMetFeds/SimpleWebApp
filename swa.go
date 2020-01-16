@@ -37,15 +37,26 @@ func saveHandler(w http.ResponseWriter, r *http.Request) {
 		Title: title,
 		Body:  []byte(body),
 	}
-	p.save()
+	err := p.save()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 
 }
 
 func renderTemplate(w http.ResponseWriter, tmplt string, p *Page) {
 	// reads edit.html returns *template.Template
-	t, _ := template.ParseFiles(tmplt + ".html")
-	t.Execute(w, p)
+	t, err := template.ParseFiles(tmplt + ".html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	err = t.Execute(w, p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 
 }
 
