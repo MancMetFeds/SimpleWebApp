@@ -7,6 +7,7 @@ import (
 	"text/template"
 )
 
+// Page generic struct
 type Page struct {
 	Title string
 	Body  []byte
@@ -49,6 +50,5 @@ func main() {
 	http.HandleFunc("/", viewController)
 	http.HandleFunc("/about", viewController)
 	http.HandleFunc("/contact", viewController)
-
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
