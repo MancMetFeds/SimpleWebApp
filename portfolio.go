@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"strings"
 	"text/template"
 )
 
@@ -13,7 +14,7 @@ type Page struct {
 
 func loadContents(t string) (*Page, error) {
 	return &Page{
-		Title: t,
+		Title: strings.Title(t),
 	}, nil
 }
 
@@ -43,22 +44,6 @@ func viewController(w http.ResponseWriter, r *http.Request) {
 	getHTML(w, file, p)
 
 }
-
-// func aboutMe(w http.ResponseWriter, r *http.Request) {
-// 	p, err := loadContents("about")
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusNotFound)
-// 	}
-// 	getHTML(w, "about", p)
-// }
-
-// func contactDetails(w http.ResponseWriter, r *http.Request) {
-// 	p, err := loadContents("contact")
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusNotFound)
-// 	}
-// 	getHTML(w, "contact", p)
-// }
 
 func main() {
 	http.HandleFunc("/", viewController)
