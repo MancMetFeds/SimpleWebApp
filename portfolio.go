@@ -1,26 +1,32 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"strings"
 	"text/template"
+
+	"github.com/gorilla/mux"
 )
 
 // Page generic struct
 type Page struct {
-	Title string
-	Body  []byte
+	Title  string
+	Link   string
+	NavBar string
+	Body   []byte
 }
 
 func loadContents(t string) (*Page, error) {
+
 	return &Page{
-		Title: strings.Title(t),
+		Title:  strings.Title(t),
+		Link:   "<link rel=\"stylesheet\" type=\"text/css\" href=\"assets/css/stylesheet.css\" media=\"screen\"/>",
+		NavBar: "<Nav>\n\t<ul style=\"list-style-type:none; \"><li style=\"display: inline; padding: 5px; padding: 5px;\"><a href=\"/\">Home</a></li><li style=\"display: inline; padding: 5px;\"><a href=\"/about\">About</a></li><li style=\"display: inline; padding: 5px;\"><a href=\"/contact\">Contact</a></li></ul></Nav>",
 	}, nil
 }
 
 func getHTML(w http.ResponseWriter, file string, p *Page) {
-	t, err := template.ParseFiles(file + ".html")
+	t, err := template.ParseFiles("views/" + file + ".html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -32,7 +38,7 @@ func getHTML(w http.ResponseWriter, file string, p *Page) {
 
 }
 
-func viewController(w http.ResponseWriter, r *http.Request) {
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	file := r.URL.Path[len("/"):]
 	p, err := loadContents(file)
 	if err != nil {
@@ -46,9 +52,43 @@ func viewController(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func ContactHandler(w http.ResponseWriter, r *http.Request) {
+	file := r.URL.Path[len("/"):]
+	p, err := loadContents(file)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+	}
+	getHTML(w, file, p)
+
+}
+
+func AboutHandler(w http.ResponseWriter, r *http.Request) {
+	file := r.URL.Path[len("/"):]
+	p, err := loadContents(file)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+	}
+	getHTML(w, file, p)
+
+}
+func AssetsHandler(w http.ResponseWriter, r *http.Request) {
+	filePath := r.URL.Path[len("/"):]
+	t, err := template.ParseFiles(filePath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+	}
+	t.Execute(w, t)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func main() {
-	http.HandleFunc("/", viewController)
-	http.HandleFunc("/about", viewController)
-	http.HandleFunc("/contact", viewController)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	router := mux.NewRouter()
+	router.HandleFunc("/", HomeHandler)
+	router.HandleFunc("/about/", AboutHandler)
+	router.HandleFunc("/contact/", ContactHandler)
+	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
+	http.Handle("/", router)
+	http.ListenAndServe(":8080", nil)
 }
