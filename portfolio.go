@@ -71,6 +71,7 @@ func AboutHandler(w http.ResponseWriter, r *http.Request) {
 	getHTML(w, file, p)
 
 }
+
 func AssetsHandler(w http.ResponseWriter, r *http.Request) {
 	filePath := r.URL.Path[len("/"):]
 	t, err := template.ParseFiles(filePath)
@@ -83,12 +84,17 @@ func AssetsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ImgHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", HomeHandler)
 	router.HandleFunc("/about/", AboutHandler)
 	router.HandleFunc("/contact/", ContactHandler)
 	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
+	router.HandleFunc("/assets/images/{filename}", ImgHandler)
 	http.Handle("/", router)
 	http.ListenAndServe(":8080", nil)
 }

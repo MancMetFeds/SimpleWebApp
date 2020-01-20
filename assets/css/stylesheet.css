@@ -1,3 +1,14 @@
-body {
+nav ul {
+    list-style: none;
 }
+
+body {
+    background: grey;
+}
+
+body ul{
+    list-style-type: disc;
+}
+
+
 
