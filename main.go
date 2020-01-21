@@ -107,5 +107,8 @@ func main() {
 	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
 	router.HandleFunc("/assets/images/{filename}", ImgHandler)
 	http.Handle("/", router)
-	http.ListenAndServe(":"+os.Getenv("PORT"), router)
+	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+	if err != nil {
+		log.Print(err)
+	}
 }
