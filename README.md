@@ -3,6 +3,8 @@ I there fore chose to build the sit eusing GO as I have never used Go to build w
 
 Within the site I plan on incoroprating several languages and showcaseoff more skills such as html and css/scss 
 
-Currently the site is being prepared for heroku/netifly how ever if you clone the reop and run `./SimpleWebApp.exe` in the terminal when in the root folder you will be able to view the site in its current state by going to `Localhost:8080`. 
+Currently the site is being hosted on heroku `https://l33t-portfolio.herokuapp.com/`
+
+Fgit push mastereel free to clone the repo however Go will be required
 
 For most recent developments see 'portfolio' branch.
