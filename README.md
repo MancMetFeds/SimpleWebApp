@@ -1,37 +1,10 @@
-## Welcome to GitHub Pages
+This is my first attempt at creating a website in golang, I plan to develop this site to showcase my skills. 
+I there fore chose to build the sit eusing GO as I have never used Go to build webapps before.
 
-You can use the [editor on GitHub](https://github.com/MancMetFeds/SimpleWebApp.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Within the site I plan on incoroprating several languages and showcaseoff more skills such as html and css/scss 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Currently the site is being hosted on heroku `https://l33t-portfolio.herokuapp.com/`
 
-### Markdown
+Fgit push mastereel free to clone the repo however Go will be required
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/MancMetFeds/SimpleWebApp.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+For most recent developments see 'portfolio' branch.
