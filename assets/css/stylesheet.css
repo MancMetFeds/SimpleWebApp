@@ -1,0 +1,20 @@
+nav ul {
+    list-style: none;
+
+}
+
+nav li {
+    display: inline; 
+    padding: 5px;
+}
+
+body {
+    background: grey;
+}
+
+body ul{
+    list-style-type: disc;
+}
+
+
+
