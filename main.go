@@ -55,26 +55,6 @@ func PageHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func ContactHandler(w http.ResponseWriter, r *http.Request) {
-	file := r.URL.Path[len("/"):]
-	p, err := loadContents(file)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
-	}
-	getHTML(w, file, p)
-
-}
-
-func AboutHandler(w http.ResponseWriter, r *http.Request) {
-	file := r.URL.Path[len("/"):]
-	p, err := loadContents(file)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
-	}
-	getHTML(w, file, p)
-
-}
-
 func AssetsHandler(w http.ResponseWriter, r *http.Request) {
 	filePath := r.URL.Path[len("/"):]
 	t, err := template.ParseFiles(filePath)
