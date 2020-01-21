@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strings"
 	"text/template"
@@ -38,8 +39,9 @@ func getHTML(w http.ResponseWriter, file string, p *Page) {
 
 }
 
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
+func PageHandler(w http.ResponseWriter, r *http.Request) {
 	file := r.URL.Path[len("/"):]
+	log.Print(file)
 	p, err := loadContents(file)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
@@ -78,21 +80,29 @@ func AssetsHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 	}
-	t.Execute(w, t)
+	err = t.Execute(w, t)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func ImgHandler(w http.ResponseWriter, r *http.Request) {
-
+	imgPath := r.URL.Path[len("/"):]
+	t, err := template.ParseFiles(imgPath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+	}
+	err = t.Execute(w, t)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/", HomeHandler)
-	router.HandleFunc("/about/", AboutHandler)
-	router.HandleFunc("/contact/", ContactHandler)
+	router.HandleFunc("/", PageHandler)
+	router.HandleFunc("/about", PageHandler)
+	router.HandleFunc("/contact", PageHandler)
 	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
 	router.HandleFunc("/assets/images/{filename}", ImgHandler)
 	http.Handle("/", router)
