@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"text/template"
 
@@ -106,5 +107,5 @@ func main() {
 	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
 	router.HandleFunc("/assets/images/{filename}", ImgHandler)
 	http.Handle("/", router)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":"+os.Getenv("PORT"), router)
 }
