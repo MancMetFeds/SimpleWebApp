@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	"text/template"
 
@@ -22,8 +21,8 @@ func loadContents(t string) (*Page, error) {
 
 	return &Page{
 		Title:  strings.Title(t),
-		Link:   "<link rel=\"stylesheet\" type=\"text/css\" href=\"assets/css/stylesheet.css\" media=\"screen\"/>",
-		NavBar: "<Nav>\n\t<ul style=\"list-style-type:none; \"><li style=\"display: inline; padding: 5px; padding: 5px;\"><a href=\"/\">Home</a></li><li style=\"display: inline; padding: 5px;\"><a href=\"/about\">About</a></li><li style=\"display: inline; padding: 5px;\"><a href=\"/contact\">Contact</a></li></ul></Nav>",
+		Link:   "<link rel=\"stylesheet\" type=\"text/css\" href=\"assets/css/stylesheet.css\" /><link rel=\"stylesheet\" type=\"text/css\" href=\"assets/css/bootstrap.css\" />",
+		NavBar: "<nav class=\"navbar navbar-expand-lg navbar-light bg-light\"><button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\"><span class=\"navbar-toggler-icon\"></span>        </button>        <div class=\"collapse navbar-collapse\" id=\"navbarNav\">          <ul class=\"navbar-nav\">            <li class=\"nav-item active\">              <a class=\"nav-link\" href=\"/\">Home</a>            </li>           <li class=\"nav-item\">              <a class=\"nav-link\" href=\"/about\">About this site & Me</a>            </li>            <li class=\"nav-item\">              <a class=\"nav-link\" href=\"/contact\">Contact Me</a>            </li>          </ul>        </div>      </nav>",
 	}, nil
 }
 
@@ -87,5 +86,6 @@ func main() {
 	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
 	router.HandleFunc("/assets/images/{filename}", ImgHandler)
 	http.Handle("/", router)
-	http.ListenAndServe(":"+os.Getenv("PORT"), router)
+	//http.ListenAndServe(":"+os.Getenv("PORT"), router)			// uncomment before push to master
+	http.ListenAndServe(":8080", nil) // comment before push to master
 }
