@@ -86,13 +86,6 @@ func main() {
 	router.HandleFunc("/assets/{filetype}/{filename}", AssetsHandler)
 	router.HandleFunc("/assets/images/{filename}", ImgHandler)
 	http.Handle("/", router)
-<<<<<<< HEAD
-	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
-	if err != nil {
-		log.Print(err)
-	}
-=======
 	//http.ListenAndServe(":"+os.Getenv("PORT"), router)			// uncomment before push to master
 	http.ListenAndServe(":8080", nil) // comment before push to master
->>>>>>> be280ae66d83ae6ab31c80c62f78e7d24d6237c6
 }

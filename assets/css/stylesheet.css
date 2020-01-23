@@ -3,6 +3,10 @@ body {
     height: 100%;
     
 }
+html,
+body {
+    overflow: hidden;
+}
 .content-div{
     position: absolute;
     margin: 0 auto;
